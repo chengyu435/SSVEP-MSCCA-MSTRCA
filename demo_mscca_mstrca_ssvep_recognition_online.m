@@ -1,5 +1,6 @@
-%20240430程宇
-%针对在线数据进行单试次数据分�?
+%20240503chengyu    
+%adjust for online experiment
+%test on 9 target experiment
 
 
 
@@ -9,11 +10,11 @@
 % close all;
 
 
-%% ��ʼ��TCP/IP
-%t = tcpip('192.168.0.72',8844);     %ʵ����Ե�IP��ַ�Ͷ˿ں�
+%% 初始化TCP/IP
+%t = tcpip('192.168.0.72',8844);     %实验电脑的IP地址和端口号
 t = tcpip('192.168.56.1',8844);
-fclose(t); %?1?7?1?7?0?9?0?8?0?2?0?4?1?7?1?7
-fopen(t); %?1?7?1?7TCPIP?1?7?1?7
+fclose(t);
+fopen(t); 
 % Please download the SSVEP benchmark dataset for this code
 % Wang, Y., et al. (2016). A benchmark dataset for SSVEP-based brain-computer interfaces. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 25(10), 1746-1752.
 % Then indicate where the directory of the dataset is :
@@ -58,7 +59,7 @@ FB_coef0=[1:num_of_subbands].^(-1.25)+0.25; % for filter bank analysis
 % time-window length (min_length:delta_t:max_length)
 % min_length=0.3;
 % delta_t=0.1;
-% max_length=1.5;                     % [min_length:delta_t:max_length] �?0.2秒的延迟
+% max_length=1.5;                     % [min_length:delta_t:max_length] 鏈?0.2绉掔殑寤惰繜
 
 TW = 1.8;
 
@@ -90,7 +91,7 @@ for tw_length=1:length(TW)
     clear y_sb_test
     sn=1;
     tic
-    load('S1.mat');%读取训练数据
+    load('S1.mat');%璇诲彇璁粌鏁版嵁
     for i=1:9
      eegdata_all = GetOnlineDataDSI(3,t);
     test_data=double(eegdata_all(ch_used,floor(0.5*Fs)+1:floor(0.5*Fs+latencyDelay)+sig_len));
@@ -237,7 +238,7 @@ for tw_length=1:length(TW)
 
 
     for sub_band=1:num_of_subbands
-        test_signal=subband_signal(sub_band).testdata(:,1:TW_p(tw_length));%这里替换test_signal
+        test_signal=subband_signal(sub_band).testdata(:,1:TW_p(tw_length));%杩欓噷鏇挎崲test_signal
         if (is_center_std==1)
             test_signal=test_signal-mean(test_signal,2)*ones(1,length(test_signal));
             test_signal=test_signal./(std(test_signal')'*ones(1,length(test_signal)));
