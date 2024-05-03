@@ -1,3 +1,7 @@
+%20240428 程宇
+%chatgpt解读代码并注释
+
+
 clear all;                    % 清空工作区
 close all;                   % 关闭所有图形窗口
 load('model.mat')            % 加载模型数据
